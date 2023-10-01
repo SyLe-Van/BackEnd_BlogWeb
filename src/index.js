@@ -6,9 +6,8 @@ const app = express()
 const morgan = require('morgan')
 
 const handlebars = require('express-handlebars');
-
-
 require('dotenv').config()
+
 
 
 app.engine('hbs', handlebars.engine({
@@ -24,7 +23,11 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE']
 }))
 
-app.use(morgan('combined'))
+app.use(express.static(path.join(__dirname,'public')))
+
+//HTTP logger
+app.use(morgan('combined')) 
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
