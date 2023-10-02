@@ -40,7 +40,9 @@ app.get('/news', (req, res) => {
     res.render('news')
 })
 
-
+app.get('/search', (req, res) => {
+    res.render('search')
+})
 
 const PORT = process.env.PORT || 8888
 
