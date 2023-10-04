@@ -8,6 +8,8 @@ const morgan = require('morgan')
 const handlebars = require('express-handlebars');
 require('dotenv').config()
 
+const route = require('./routes')
+
 
 
 app.engine('hbs', handlebars.engine({
@@ -30,19 +32,12 @@ app.use(morgan('combined'))
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({
+    extended: true
+}))
+app.use(express.json())
 
 
-app.get('/', (req, res) => {
-    res.render('home')
-})
-
-app.get('/news', (req, res) => {
-    res.render('news')
-})
-
-app.get('/search', (req, res) => {
-    res.render('search')
-})
 
 const PORT = process.env.PORT || 8888
 
