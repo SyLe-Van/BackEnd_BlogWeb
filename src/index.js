@@ -10,8 +10,6 @@ require('dotenv').config()
 
 const route = require('./routes')
 
-
-
 app.engine('hbs', handlebars.engine({
     extname: '.hbs'
 }))
