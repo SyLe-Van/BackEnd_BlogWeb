@@ -4,9 +4,9 @@ const siteRouter = require('./site')
 function route(app) {
 
     app.use('/news', newsRouter)
-    app.use('/', siteRouter)
+    app.use('/', sitesRouter)
    
 
 }
 
-module.exports = route;
+module.exports = route
