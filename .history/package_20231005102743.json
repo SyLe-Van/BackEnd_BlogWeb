@@ -8,6 +8,7 @@
     "dev": "node index.js",
     "watch": "node-sass -w src/resources/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1"
+
   },
   "author": "levansy_20521854",
   "license": "ISC",
@@ -20,11 +21,8 @@
   },
   "devDependencies": {
     "engine": "^1.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^14.0.1",
     "morgan": "^1.10.0",
-    "nodemon": "^3.0.1",
-    "prettier": "^3.0.3"
+    "nodemon": "^3.0.1"
   },
   "repository": {
     "type": "git",

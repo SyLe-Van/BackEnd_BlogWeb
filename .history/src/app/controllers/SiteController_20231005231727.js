@@ -4,9 +4,9 @@ class SiteController {
 
     // [GET] /
     async index(req, res) {
-
+        
         try {
-            const purchase = await Purchase.find({});
+            const purchase = await purchase.find({});
             res.json(purchase);
         }  catch (err) {
             res.status(400).json({error: 'ERROR!'});

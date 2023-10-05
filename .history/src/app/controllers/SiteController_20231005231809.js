@@ -6,8 +6,8 @@ class SiteController {
     async index(req, res) {
 
         try {
-            const purchase = await Purchase.find({});
-            res.json(purchase);
+            const data = await Purchase.find({});
+            res.json(data);
         }  catch (err) {
             res.status(400).json({error: 'ERROR!'});
         }

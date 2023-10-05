@@ -4,12 +4,11 @@ class SiteController {
 
     // [GET] /
     async index(req, res) {
-
         try {
-            const purchase = await Purchase.find({});
-            res.json(purchase);
-        }  catch (err) {
-            res.status(400).json({error: 'ERROR!'});
+            const Purchase = await Purchase.find({});
+            res.json(Purchase);
+        } catch (err) {
+            res.status(400).json({ error: 'ERROR!' });
         }
         // res.render('home');
     }
