@@ -8,3 +8,4 @@ router.post('/store', purchaseController.store);
 router.get('/:slug', purchaseController.show)
 
 module.exports = router;
+

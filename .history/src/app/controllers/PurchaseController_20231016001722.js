@@ -23,10 +23,7 @@ class PurchaseController {
     
         const purchase = new Purchase(req.body)
         purchase.save()
-            .then(() => res.redirect('/'))
-            .catch(error => {
-                
-            })
+        res.send('PURCHASE SAVE')
     }
 }
 

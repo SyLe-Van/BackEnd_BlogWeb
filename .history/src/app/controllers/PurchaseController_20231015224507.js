@@ -14,21 +14,10 @@ class PurchaseController {
     }
 
     // course/create
-    create(req, res, next) {
-        res.render('purchases/create')
-    }
-
-    // [POST] course/store
-    store(req, res, next) {
-    
-        const purchase = new Purchase(req.body)
-        purchase.save()
-            .then(() => res.redirect('/'))
-            .catch(error => {
-                
-            })
+    show(req, res, next) {
+        res.send('Create Page')
     }
 }
 
-module.exports = new PurchaseController();
+module.exports = new PurchaseController;
 

@@ -20,15 +20,9 @@ class PurchaseController {
 
     // [POST] course/store
     store(req, res, next) {
-    
-        const purchase = new Purchase(req.body)
-        purchase.save()
-            .then(() => res.redirect('/'))
-            .catch(error => {
-                
-            })
+        res.json(req.body)
     }
 }
 
-module.exports = new PurchaseController();
+module.exports = new PurchaseController;
 
