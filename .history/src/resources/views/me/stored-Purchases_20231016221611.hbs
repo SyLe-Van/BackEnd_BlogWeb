@@ -1,0 +1,27 @@
+<div class="mt4">
+    <h3>My purchases</h3>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name Item</th>
+                <th scope="col">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each purchases}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+                <td>
+                    <button type="button" class="btn btn-link">Link</button>
+                    <button type="button" class="btn btn-link">Link</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+</table>
+
+</div>

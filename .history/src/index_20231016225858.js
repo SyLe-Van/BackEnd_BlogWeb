@@ -18,7 +18,7 @@ app.use(express.urlencoded({
 }));
 app.use(express.json());
 app.use(methodOverride('_method'));
-app.use(express.urlencoded({ extended: true }));
+
 // HTTP logger
 // app.use(morgan('combined'));
 // Template engine

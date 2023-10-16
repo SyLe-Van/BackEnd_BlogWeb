@@ -40,7 +40,7 @@ class PurchaseController {
      // [PUT] purchases/:id
     update(req, res, next) {
         Purchase.updateOne({_id: req.params.id}, req.body)
-            .then(() => res.redirect('/me/stored/purchase'))
+            .then(() => res.redirect('me/stored/purchases'))
             .catch(next)
     }
 }

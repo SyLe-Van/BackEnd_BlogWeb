@@ -28,7 +28,7 @@ class PurchaseController {
                 
             })
     }
-    // [GET] purchases/:id/change
+    // purchases/:id/change
     change(req, res, next) {
         Purchase.findById(req.params.id)
             .then(purchases => res.render('purchases/change', {
@@ -36,12 +36,6 @@ class PurchaseController {
             }))
             .catch(next)
 
-    }
-     // [PUT] purchases/:id
-    update(req, res, next) {
-        Purchase.updateOne({_id: req.params.id}, req.body)
-            .then(() => res.redirect('/me/stored/purchase'))
-            .catch(next)
     }
 }
 

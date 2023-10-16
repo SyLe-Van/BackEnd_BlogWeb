@@ -4,7 +4,7 @@ const { mongooseToObject } = require('../../util/mongoose');
 class PurchaseController {
 
     
-    // [GET] /purchases/T-shirt
+    // [GET] /course/T-shirt
     show(req, res, next) {
         Purchase.findOne({slug: req.params.slug})
             .then(purchase => {
@@ -13,12 +13,12 @@ class PurchaseController {
             .catch(next)
     }
 
-    // purchases/create
+    // course/create
     create(req, res, next) {
         res.render('purchases/create')
     }
 
-    // [POST] purchases/store
+    // [POST] course/store
     store(req, res, next) {
     
         const purchase = new Purchase(req.body)
@@ -28,20 +28,9 @@ class PurchaseController {
                 
             })
     }
-    // [GET] purchases/:id/change
+    // edit item
     change(req, res, next) {
-        Purchase.findById(req.params.id)
-            .then(purchases => res.render('purchases/change', {
-                purchases: mongooseToObject(purchases)
-            }))
-            .catch(next)
-
-    }
-     // [PUT] purchases/:id
-    update(req, res, next) {
-        Purchase.updateOne({_id: req.params.id}, req.body)
-            .then(() => res.redirect('/me/stored/purchase'))
-            .catch(next)
+        res.render('purchases/create')
     }
 }
 
