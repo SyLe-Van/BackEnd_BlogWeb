@@ -63,11 +63,10 @@
                 purchasesId = button.data('id')
             })
 
-            // when delete purchase button click
+            console.log(btnDeletePurchases)
 
-            btnDeletePurchases.onclick = function() { 
-                deleteForm.action = '/purchases/' + purchasesId + '?_method=DELETE'
-                deleteForm.submit()
+            btnDeletePurchases.onclick = function() {
+                alert(purchasesId)
             }
         })
 </script>

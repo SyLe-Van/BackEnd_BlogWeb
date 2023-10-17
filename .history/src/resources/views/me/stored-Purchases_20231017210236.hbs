@@ -47,27 +47,16 @@
   </div>
 </div>
 
-<form name="delete-form" method="POST"></form>
-
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            var purchasesId
-            var deleteForm = document.forms['delete-form']
-            var btnDeletePurchases = document.getElementById('btn-delete-purchases')
-
+        document.addEventListener('DOMContentLoaded', function (event)) {
             // When dialog confirm clicked
             $('#delete-purchases-modal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
                 var id = button.data('id')
-                purchasesId = button.data('id')
+                console.log(id)
             })
 
-            // when delete purchase button click
-
-            btnDeletePurchases.onclick = function() { 
-                deleteForm.action = '/purchases/' + purchasesId + '?_method=DELETE'
-                deleteForm.submit()
-            }
-        })
+            var btnDeletePurchases = document.getElementById('btn-delete-purchases')
+            console.log(btnDeletePurchases)
+        }
 </script>

@@ -43,12 +43,6 @@ class PurchaseController {
             .then(() => res.redirect('/me/stored/purchase'))
             .catch(next)
     }
-    // [DELETE] purchases/:id
-    destroy(req, res, next) {
-        Purchase.deleteOne({_id: req.params.id})
-            .then(() => res.redirect('back'))
-            .catch(next)
-    }
 }
 
 module.exports = new PurchaseController();

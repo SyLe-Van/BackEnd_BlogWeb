@@ -8,6 +8,7 @@ router.post('/store', purchaseController.store);
 router.get('/:id/change', purchaseController.change);
 router.put('/:id', purchaseController.update);
 router.delete('/:id', purchaseController.destroy);
+
 router.get('/:slug', purchaseController.show)
 
 module.exports = router;

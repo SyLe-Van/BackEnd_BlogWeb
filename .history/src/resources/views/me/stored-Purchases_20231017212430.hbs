@@ -53,9 +53,6 @@
         document.addEventListener('DOMContentLoaded', function () {
 
             var purchasesId
-            var deleteForm = document.forms['delete-form']
-            var btnDeletePurchases = document.getElementById('btn-delete-purchases')
-
             // When dialog confirm clicked
             $('#delete-purchases-modal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -63,11 +60,11 @@
                 purchasesId = button.data('id')
             })
 
-            // when delete purchase button click
+            var btnDeletePurchases = document.getElementById('btn-delete-purchases')
+            console.log(btnDeletePurchases)
 
-            btnDeletePurchases.onclick = function() { 
-                deleteForm.action = '/purchases/' + purchasesId + '?_method=DELETE'
-                deleteForm.submit()
+            btnDeletePurchases.onclick = function() {
+                alert(purchasesId)
             }
         })
 </script>
