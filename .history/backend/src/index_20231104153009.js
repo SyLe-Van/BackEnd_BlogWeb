@@ -5,7 +5,7 @@ const hbs = require('express-handlebars');
 const handlebars = require('express-handlebars');
 const app = express();
 const route = require('./routes');
-const port = 3000;
+const port = 7000;
 const db = require('./config/db')
 const methodOverride = require('method-override')
 // Connect DB
@@ -19,6 +19,9 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
+// HTTP logger
+// app.use(morgan('combined'));
+// Template engine
 
 
 app.engine('hbs', handlebars.engine({
