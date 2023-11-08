@@ -1,0 +1,63 @@
+:root {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
+    padding-top: 10px;
+    display: flex;
+    height: 800px;
+    width: 800px;
+    background-color: rgb(255, 255, 255);
+}
+
+.slideshow {
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.slides {
+    width: 600px;
+    height: 650px;
+    margin-left: 75px;
+}
+
+.next:hover {
+    background-color: black;
+}
+.prev:hover {
+    background-color: black;
+}
+
+.prev {
+    padding: 16px;
+    font-size: 18px;
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 32px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 45%;
+    left: 91%;
+}
+
+.next {
+    padding: 16px;
+    font-size: 18px;
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 32px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    color: white;
+    position: absolute;
+    top: 45%;
+    right: 80%;
+}

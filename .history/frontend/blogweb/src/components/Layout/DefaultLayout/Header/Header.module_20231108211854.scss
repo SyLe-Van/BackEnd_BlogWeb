@@ -1,0 +1,18 @@
+.wrapper {
+    height: 92px;
+    width: 1440px;
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+    z-index: 10;
+}
+.inner {
+    height: 92px;
+    width: 1200;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+}
+.inner a {
+    text-decoration: none;
+    color: #000000;
+    
+}

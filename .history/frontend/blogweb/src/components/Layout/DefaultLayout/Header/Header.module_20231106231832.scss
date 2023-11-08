@@ -1,0 +1,19 @@
+.wrapper {
+    height: 92px;
+    width: 100%;
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+    z-index: 10;
+    background-color: rgb(129, 225, 225);
+}
+.inner {
+    color: #000000;
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+}
+.inner a {
+    text-decoration: none;
+    color: #000000;
+    
+}

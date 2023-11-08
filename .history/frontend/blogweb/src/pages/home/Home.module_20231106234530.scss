@@ -1,0 +1,21 @@
+.wrapper{
+    
+}
+
+.contain {
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+
+.contain-left{
+    background-color: rgb(96, 221, 179);
+}
+.contain-right{
+    background-color: aqua;
+}
+.contain-middle{
+    background-color: rgb(10, 227, 155);
+}

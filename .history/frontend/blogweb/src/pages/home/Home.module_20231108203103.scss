@@ -1,0 +1,43 @@
+.wrapper{
+    width: 100%;
+    height: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: aqua;
+}
+
+.inner{
+    height: 1000px;
+    width: 1200px;
+    margin: 0 auto;
+   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    width: 1220px;
+    margin: 0 auto; /* Canh giữa content */
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Box shadow giữa các phần */
+
+    /* Đảm bảo phần middle mở rộng để lấp đầy khoảng trống giữa left và right */
+    flex: 1;
+}
+
+/* CSS cho phần left và right */
+.left, .right {
+    width: 310px;
+    background-color: #f0f0f0;
+    padding: 10px;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.2); /* Box shadow ở bên trái và bên phải */
+}
+
+/* CSS cho phần middle */
+.middle {
+    background-color: #ffffff;
+    padding: 10px;
+}
