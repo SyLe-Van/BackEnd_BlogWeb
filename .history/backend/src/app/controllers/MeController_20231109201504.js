@@ -4,7 +4,7 @@ const { mongooseToObject, mutipleMongooseToObject } = require('../../util/mongoo
 
 class MeController {
 
-    //GET /me/stored/purchases
+    //GET /me/stored/
     storedPurchases(req, res, next) {
         Purchase.find({})
             .then(purchases =>  res.render('me/stored-Purchases', {
