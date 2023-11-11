@@ -3,7 +3,7 @@
  * @apiName CreateItem
  * @apiGroup Admin
  *
- * @apiParam {String} Name Name of purchases.
+ * @apiParam {String} name Name of purchases.
  * @apiParam {String} Description Decription of purchases.
  * @apiParam {Number} Video_ID Video ID of purchases.
 

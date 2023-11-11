@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
-const hbs = require('express-handlebars');
+const hbs = require('express-handlebars');  
 const handlebars = require('express-handlebars');
 const app = express();
 const route = require('./routes');
@@ -19,6 +19,9 @@ app.use(express.urlencoded({
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
+// HTTP logger
+// app.use(morgan('combined'));
+// Template engine
 
 
 app.engine('hbs', handlebars.engine({
