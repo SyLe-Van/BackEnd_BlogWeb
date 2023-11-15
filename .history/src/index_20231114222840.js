@@ -4,10 +4,12 @@ const morgan = require('morgan');
 const app = express();
 const route = require('./routes');
 const port = 3000;
+const db = require('./config/db')
 const cors = require('cors')
-const methodOverride = require('method-override');
-const { default: mongoose } = require('mongoose');
-const User = require('./app/models/User');
+const methodOverride = require('method-override')
+// Connect DB
+db.connect()
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({
     extended: true
@@ -16,9 +18,11 @@ app.use(cors())
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
+// HTTP logger
+// app.use(morgan('combined'));
+// Template engine
 
-mongoose.connect('mongodb+srv://SyCung:07122002@blogcluster.9crdeuf.mongodb.net/?retryWrites=true&w=majority')
 
+// Routes init
 route(app);
-app.listen(port, () =>{ console.log(`App listening at http://localhost:${port}`)},
-);
+app.listen(port, () => console.log(`App listening at http://localhost:${port}`));

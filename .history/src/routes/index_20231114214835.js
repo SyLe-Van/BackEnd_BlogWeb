@@ -1,9 +1,11 @@
 const registerRouter = require('./register')
-
 function route(app) {
 
-    app.use('/register', registerRouter)
+    app.use('/news', newsRouter)
+    app.use('/', siteRouter)
 
+     
+    
 }
 
 module.exports = route;

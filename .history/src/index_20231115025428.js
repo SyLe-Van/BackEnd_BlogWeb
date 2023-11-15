@@ -7,7 +7,6 @@ const port = 3000;
 const cors = require('cors')
 const methodOverride = require('method-override');
 const { default: mongoose } = require('mongoose');
-const User = require('./app/models/User');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({
     extended: true
