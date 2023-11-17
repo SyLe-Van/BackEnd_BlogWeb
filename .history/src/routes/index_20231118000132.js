@@ -11,7 +11,6 @@ function route(app) {
     app.use('/register', registerRouter)
     app.use('/login', loginRouter)
     app.use('/profile', profileRouter)
-    app.use('/logout', logoutRouter)
 
 }
 
