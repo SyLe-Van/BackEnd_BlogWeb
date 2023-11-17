@@ -1,8 +1,6 @@
 // const { mongooseToObject, mutipleMongooseToObject } = require('../../util/mongoose');
 
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const salt = bcrypt.genSaltSync(10);
 
 class RegisterController {
     // [POST] /register
@@ -11,7 +9,7 @@ class RegisterController {
         try{
             const userDoc = await User.create({
               username,
-              password: bcrypt.hashSync(password, salt), 
+              password,
             });
             res.json(userDoc);
           } catch(e) {

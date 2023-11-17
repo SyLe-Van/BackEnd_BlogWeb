@@ -4,9 +4,9 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(10);
 
-class RegisterController {
-    // [POST] /register
-    async register(req, res) {
+class LoginController {
+    // [POST] /Login
+    async login(req, res) {
         const { username, password} = req.body;
         try{
             const userDoc = await User.create({
@@ -21,4 +21,4 @@ class RegisterController {
     }
 }
 
-module.exports = new RegisterController;
+module.exports = new LoginController;
