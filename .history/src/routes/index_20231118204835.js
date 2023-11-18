@@ -14,8 +14,10 @@ function route(app) {
     app.use('/login', loginRouter)
     app.use('/profile', profileRouter)
     app.use('/logout', logoutRouter)
+    app.use('/getPost', postRouter)
     app.use('/post', postRouter)
     
+
 }
 
 module.exports = route;

@@ -19,8 +19,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-app.use('/public/uploads', express.static(__dirname+'/public/uploads'));
+app.use('/public/uploads', express.static(path.join(__dirname, '/public/uploads')));
 
+ 
 mongoose.connect('mongodb+srv://SyCung:07122002@blogcluster.9crdeuf.mongodb.net/?retryWrites=true&w=majority')
     .then(() => console.log('Connected to MongoDB...'))
     .catch(err => console.error('Could not connect to MongoDB...'));

@@ -15,6 +15,7 @@ function route(app) {
     app.use('/profile', profileRouter)
     app.use('/logout', logoutRouter)
     app.use('/post', postRouter)
+    app.use('/post', postRouter)
     
 }
 
