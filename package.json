@@ -25,6 +25,7 @@
     "mongodb": "^6.2.0",
     "mongoose": "^6.12.3",
     "mongoose-slug-generator": "^1.0.4",
+    "multer": "^1.4.5-lts.1",
     "mysql2": "^3.6.3",
     "node-sass": "^9.0.0",
     "sequelize": "^6.35.0"

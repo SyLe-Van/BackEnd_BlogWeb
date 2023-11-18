@@ -10,6 +10,7 @@ class ProfileController {
             res.json(info)
         })
     }
+
 }
 
 module.exports = new ProfileController;
