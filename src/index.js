@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use('/public/uploads', express.static(__dirname+'/public/uploads'));
 
-mongoose.connect('mongodb+srv://SyCung:07122002@blogweb.c8um31o.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://SyCung:07122002@blogcluster.c8um31o.mongodb.net/?retryWrites=true&w=majority')
     .then(() => console.log('Connected to MongoDB...'))
     .catch((err) => {
         console.log(err);
@@ -33,5 +33,3 @@ route(app);
 app.listen(port, () =>{ console.log(`App listening at http://localhost:${port}`)},
 );
 
-//mongodb+srv://SyCung:07122002@blogweb.c8um31o.mongodb.net/?retryWrites=true&w=majority
-//mongodb+srv://SyCung:07122002@blogcluster.9crdeuf.mongodb.net/?retryWrites=true&w=majority
