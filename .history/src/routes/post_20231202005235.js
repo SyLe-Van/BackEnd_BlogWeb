@@ -22,6 +22,7 @@ router.get('/' ,postController.getPost)
 router.get('/:id', postController.getPostById)
 router.put('/update/:id', postController.updatePost)
 router.delete('/deletePost/:id', postController.deletePost)
+// router.get('/', postController.getImage)
 module.exports = router;
 
 

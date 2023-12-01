@@ -61,6 +61,7 @@ const uploadSingleFile = async (fileObject) => {
           .limit(10)
         )
       }
+      // [GET] /Cover
 
       // [GET] /Post/:id
       async getPostById(req, res) {
@@ -68,7 +69,7 @@ const uploadSingleFile = async (fileObject) => {
         const postDoc = await Post.findById(id).populate('author', ['username'])
         res.json(postDoc)
       }
-      // [PUT] /Post/update/:id
+      // [PUT] /Post/:id
       async updatePost(req, res) {
         let name = null;
         if(req.files){
@@ -95,14 +96,16 @@ const uploadSingleFile = async (fileObject) => {
           res.json(postDoc)
         })
       }
-      // [DELETE] /deletePost/:id
+      // [DELETE] /Post/:id
       deletePost(req, res) {
-        const { id } = req.params;
-        console.log(id)
-        Post.findByIdAndDelete(id)
-          .then(() => res.json('ok'))
-          .catch(err => res.status(400).json('Error: ' + err));
+        res.json('ok')
+        // const postId = req.params.id;
+        // Post.findByIdAndDelete(postId)
+        //   // .then(() => res.ridirect('back'))
+        //   .then(() => res.json('ok'))
+        //   .catch(err => res.status(400).json('Error: ' + err));
       }
 }
 
 module.exports = new PostController; 
+  

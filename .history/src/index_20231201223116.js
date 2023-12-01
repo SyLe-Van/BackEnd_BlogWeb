@@ -22,9 +22,9 @@ app.use(cookieParser());
 app.use(fileUpload())
 
 
-console.log("static",path.join(__dirname, 'app/public/images/upload'))
+console.log(path.join(__dirname, 'app/public/images/upload'))
 
-app.use("/static", express.static(path.join(__dirname, 'app/public/images/upload')));
+app.use( express.static(path.join(__dirname, 'app/public/images/upload')));
 
 mongoose.connect('mongodb+srv://sycung:07122002@blogweb.c8um31o.mongodb.net/?retryWrites=true&w=majority')
     .then(() => console.log('Connected to MongoDB...'))
