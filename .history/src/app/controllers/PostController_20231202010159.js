@@ -97,8 +97,7 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [DELETE] /deletePost/:id
       deletePost(req, res) {
-        const { id } = req.params;
-        console.log(id)
+        const {id} = req.params
         Post.findByIdAndDelete(id)
           .then(() => res.json('ok'))
           .catch(err => res.status(400).json('Error: ' + err));
@@ -106,3 +105,4 @@ const uploadSingleFile = async (fileObject) => {
 }
 
 module.exports = new PostController; 
+  

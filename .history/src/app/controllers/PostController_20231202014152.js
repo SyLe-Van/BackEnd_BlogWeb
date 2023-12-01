@@ -106,3 +106,4 @@ const uploadSingleFile = async (fileObject) => {
 }
 
 module.exports = new PostController; 
+  

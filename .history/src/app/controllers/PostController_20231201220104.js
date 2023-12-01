@@ -33,7 +33,7 @@ const uploadSingleFile = async (fileObject) => {
   class PostController {
     // [POST] /Post
       async post(req, res) {
-       const images= await uploadSingleFile(req.files);
+        await uploadSingleFile(req.files);
         const { file: { name } } = req.files;;
         const parts = name.split('.')
         const ext = parts[parts.length - 1] 
@@ -46,7 +46,7 @@ const uploadSingleFile = async (fileObject) => {
           title,
           content,
           categories,
-          cover: images.path,
+          cover: name,
           author: info.id
           })
           res.json(postDoc)
@@ -61,14 +61,20 @@ const uploadSingleFile = async (fileObject) => {
           .limit(10)
         )
       }
-
+      // [GET] /Post/image
+      async getImage(req, res) {
+        const { id } = req.params;
+        const postImage = await Post.findById(id)
+        const coverPath = path.resolve(__dirname, `../public/images/upload/${postImage.cover}`);
+        res.sendFile(coverPath);
+      }
       // [GET] /Post/:id
       async getPostById(req, res) {
         const { id } = req.params;
         const postDoc = await Post.findById(id).populate('author', ['username'])
         res.json(postDoc)
       }
-      // [PUT] /Post/update/:id
+      // [PUT] /Post/:id
       async updatePost(req, res) {
         let name = null;
         if(req.files){
@@ -95,14 +101,15 @@ const uploadSingleFile = async (fileObject) => {
           res.json(postDoc)
         })
       }
-      // [DELETE] /deletePost/:id
-      deletePost(req, res) {
+      // [DELETE] /Post/:id
+      async deletePost(req, res) {
         const { id } = req.params;
-        console.log(id)
         Post.findByIdAndDelete(id)
-          .then(() => res.json('ok'))
-          .catch(err => res.status(400).json('Error: ' + err));
+        .then(() => res.ridirect('back'))
+        .then(() => res.json('Post deleted.'))
+        .catch(err => res.status(400).json('Error: ' + err));
       }
 }
 
 module.exports = new PostController; 
+  

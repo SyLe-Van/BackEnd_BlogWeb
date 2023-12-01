@@ -20,8 +20,9 @@ const upload = multer({ storage: storage })
 router.post('/' ,postController.post )
 router.get('/' ,postController.getPost)
 router.get('/:id', postController.getPostById)
-router.put('/update/:id', postController.updatePost)
-router.delete('/deletePost/:id', postController.deletePost)
+router.put('/', postController.updatePost)
+router.delete('/:id', postController.deletePost)
+router.get('/image/:id', postController.getImage)
 module.exports = router;
 
 
