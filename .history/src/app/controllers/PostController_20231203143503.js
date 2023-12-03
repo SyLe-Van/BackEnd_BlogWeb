@@ -54,16 +54,13 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [GET] /Post
       async getPost(req, res) {
-
+        
         res.json(await Post.find()
           .populate('author', ['username'])
           .sort({createdAt: -1})
+          .limit(10)
         )
       }
-      // getALLcategories
-      async getAll(req, res) {
-        res.json(await Post.find({}, 'categories'))
-    }
 
       // [GET] /Post/:id
       async getPostById(req, res) {
@@ -85,8 +82,6 @@ const uploadSingleFile = async (fileObject) => {
       // [GET] /getPostByCategories/:categories
       async getPostByCategories(req, res) {
         const categories = req.params.categories;
-        const posts = await Post.find({ categories: categories });
-        res.json(posts);
         try {
           const posts = await Post.find({ categories: categories });
           if (posts.length === 0) {

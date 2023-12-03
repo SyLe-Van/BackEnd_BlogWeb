@@ -85,17 +85,18 @@ const uploadSingleFile = async (fileObject) => {
       // [GET] /getPostByCategories/:categories
       async getPostByCategories(req, res) {
         const categories = req.params.categories;
-        const posts = await Post.find({ categories: categories });
+        const posts = await Post.find({ categories: categories }).populate('author', ['username']);
         res.json(posts);
-        try {
-          const posts = await Post.find({ categories: categories });
-          if (posts.length === 0) {
-            return res.status(404).json({ message: 'No posts found for the specified categories.' });
-          }
-          res.json(posts);
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
+        // res.json(posts);
+        // try {
+        //   const posts = await Post.find({ categories: categories });
+        //   if (posts.length === 0) {
+        //     return res.status(404).json({ message: 'No posts found for the specified categories.' });
+        //   }
+        //   res.json(posts);
+        // } catch (error) {
+        //   res.status(500).json({ error: 'Internal Server Error' });
+        // }
       }
       // [PUT] /Post/update/:id
       async updatePost(req, res) {
