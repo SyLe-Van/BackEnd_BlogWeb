@@ -28,7 +28,13 @@ app.use("/static", express.static(path.join(__dirname, 'app/public/images/upload
 
 mongoose.connect('mongodb+srv://sycung:07122002@blogweb.c8um31o.mongodb.net/?retryWrites=true&w=majority')
     .then(() => console.log('Connected to MongoDB...'))
-    .catch(err => console.error('Could not connect to MongoDB...'));
+    .catch((err) => {
+        console.log(err);
+        console.error('Could not connect to MongoDB...')
+    });
+    
+
 route(app);
 app.listen(port, () =>{ console.log(`App listening at http://localhost:${port}`)},
 );
+
