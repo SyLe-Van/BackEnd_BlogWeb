@@ -8,7 +8,6 @@ const loginRouter = require('./login')
 const profileRouter = require('./profile')
 const logoutRouter = require('./logout')
 const postRouter = require('./post')
-const commentRouter = require('./comment')
 
 function route(app) {
 
@@ -17,7 +16,8 @@ function route(app) {
     app.use('/profile', profileRouter)
     app.use('/logout', logoutRouter)
     app.use('/post', postRouter)
-    app.use('/comment', commentRouter)
+    app.use('/getPost', postRouter)
+
 }
 
 module.exports = route;
