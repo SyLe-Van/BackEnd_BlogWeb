@@ -54,16 +54,13 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [GET] /Post
       async getPost(req, res) {
-
+        
         res.json(await Post.find()
           .populate('author', ['username'])
           .sort({createdAt: -1})
+          .limit(10)
         )
       }
-      // getALLcategories
-      async getAll(req, res) {
-        res.json(await Post.find({}, 'categories'))
-    }
 
       // [GET] /Post/:id
       async getPostById(req, res) {
@@ -72,31 +69,24 @@ const uploadSingleFile = async (fileObject) => {
         res.json(postDoc)
       }
 
-      // [GET] /category/:category
+      // [GET] /categories
       async getCategories(req, res) {
-        try {
-          const lastPost = await Post.findOne().sort({createdAt: -1});
-          const lastCategories = lastPost.categories;
-          res.json(lastCategories);
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
-      }
-      // [GET] /getPostByCategories/:categories
-      async getPostByCategories(req, res) {
-        const categories = req.params.categories;
-        const posts = await Post.find({ categories: categories });
+        // try {
+        //   const lastPost = await Post.findOne().sort({createdAt: -1});
+        //   const lastCategories = lastPost.categories;
+        //   res.json(lastCategories);
+        // } catch (error) {
+        //   res.status(500).json({ error: 'Internal Server Error' });
+        // }
+        const posts = await Post.find({ categories: category });
         res.json(posts);
-        try {
-          const posts = await Post.find({ categories: categories });
-          if (posts.length === 0) {
-            return res.status(404).json({ message: 'No posts found for the specified categories.' });
-          }
-          res.json(posts);
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
       }
+      // [GET] /Post/getPostByCategories/:categories
+      // async getPostByCategories(req, res) {
+      //   const { categories } = req.params;
+      //   const posts = await Post.find({ categories: { $in: [categories] } })
+      //   res.json(posts);
+      // }
       // [PUT] /Post/update/:id
       async updatePost(req, res) {
         let name = null;

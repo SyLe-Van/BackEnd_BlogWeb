@@ -54,16 +54,13 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [GET] /Post
       async getPost(req, res) {
-
+        
         res.json(await Post.find()
           .populate('author', ['username'])
           .sort({createdAt: -1})
+          .limit(10)
         )
       }
-      // getALLcategories
-      async getAll(req, res) {
-        res.json(await Post.find({}, 'categories'))
-    }
 
       // [GET] /Post/:id
       async getPostById(req, res) {
@@ -84,18 +81,22 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [GET] /getPostByCategories/:categories
       async getPostByCategories(req, res) {
-        const categories = req.params.categories;
+
+        const { categories } = req.params;
+        console.log('Đang tìm kiếm danh mục:', categories);
         const posts = await Post.find({ categories: categories });
+        console.log('Bài viết được tìm thấy:', posts);
+
         res.json(posts);
-        try {
-          const posts = await Post.find({ categories: categories });
-          if (posts.length === 0) {
-            return res.status(404).json({ message: 'No posts found for the specified categories.' });
-          }
-          res.json(posts);
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
+        // try {
+        //   const posts = await Post.find({ categories: categories });
+        //   if (posts.length === 0) {
+        //     return res.status(404).json({ message: 'No posts found for the specified categories.' });
+        //   }
+        //   res.json(posts);
+        // } catch (error) {
+        //   res.status(500).json({ error: 'Internal Server Error' });
+        // }
       }
       // [PUT] /Post/update/:id
       async updatePost(req, res) {

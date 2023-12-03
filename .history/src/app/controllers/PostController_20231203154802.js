@@ -54,16 +54,13 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [GET] /Post
       async getPost(req, res) {
-
-        res.json(await Post.find()
+        
+        res.json(await Post.find({}, 'categories')
           .populate('author', ['username'])
           .sort({createdAt: -1})
+          
         )
       }
-      // getALLcategories
-      async getAll(req, res) {
-        res.json(await Post.find({}, 'categories'))
-    }
 
       // [GET] /Post/:id
       async getPostById(req, res) {
@@ -85,15 +82,31 @@ const uploadSingleFile = async (fileObject) => {
       // [GET] /getPostByCategories/:categories
       async getPostByCategories(req, res) {
         const categories = req.params.categories;
-        const posts = await Post.find({ categories: categories });
+        const posts = await Post.find({ categories: categories }).populate('author', ['username']);
         res.json(posts);
+        // res.json(posts);
+        // try {
+        //   const posts = await Post.find({ categories: categories });
+        //   if (posts.length === 0) {
+        //     return res.status(404).json({ message: 'No posts found for the specified categories.' });
+        //   }
+        //   res.json(posts);
+        // } catch (error) {
+        //   res.status(500).json({ error: 'Internal Server Error' });
+        // }
+      }
+      // getALLcategories
+      async getAll(req, res) {
         try {
-          const posts = await Post.find({ categories: categories });
-          if (posts.length === 0) {
-            return res.status(404).json({ message: 'No posts found for the specified categories.' });
+          const allCategories = await Post.find({}, 'categories');
+          if (allCategories.length === 0) {
+            return res.status(404).json({ message: 'No categories found.' });
           }
-          res.json(posts);
+          // Sử dụng Set để loại bỏ giá trị trùng lặp
+          const uniqueCategories = [...new Set(allCategories.map(post => post.categories))];
+          res.json(uniqueCategories);
         } catch (error) {
+          console.error('Error fetching categories:', error);
           res.status(500).json({ error: 'Internal Server Error' });
         }
       }

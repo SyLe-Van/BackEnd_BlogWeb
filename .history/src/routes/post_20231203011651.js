@@ -20,11 +20,9 @@ const upload = multer({ storage: storage })
 router.post('/' ,postController.post )
 router.get('/' ,postController.getPost)
 router.get('/:id', postController.getPostById)
-router.get('/category/:category', postController.getCategories)
-router.get('/category/getAll', postController.getAll)
-router.get('/getPostByCategories/:categories', postController.getPostByCategories)
 router.put('/update/:id', postController.updatePost)
 router.delete('/deletePost/:id', postController.deletePost)
+router.get('/:categories', postController.getPostByCategories)
 module.exports = router;
 
 

@@ -54,16 +54,13 @@ const uploadSingleFile = async (fileObject) => {
       }
       // [GET] /Post
       async getPost(req, res) {
-
+        
         res.json(await Post.find()
           .populate('author', ['username'])
           .sort({createdAt: -1})
+          .limit(10)
         )
       }
-      // getALLcategories
-      async getAll(req, res) {
-        res.json(await Post.find({}, 'categories'))
-    }
 
       // [GET] /Post/:id
       async getPostById(req, res) {
@@ -73,30 +70,37 @@ const uploadSingleFile = async (fileObject) => {
       }
 
       // [GET] /category/:category
-      async getCategories(req, res) {
-        try {
-          const lastPost = await Post.findOne().sort({createdAt: -1});
-          const lastCategories = lastPost.categories;
-          res.json(lastCategories);
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
-      }
+      // async getCategories(req, res) {
+      //   try {
+      //     const lastPost = await Post.findOne().sort({createdAt: -1});
+      //     const lastCategories = lastPost.categories;
+      //     res.json(lastCategories);
+      //   } catch (error) {
+      //     res.status(500).json({ error: 'Internal Server Error' });
+      //   }
+      // }
       // [GET] /getPostByCategories/:categories
       async getPostByCategories(req, res) {
-        const categories = req.params.categories;
-        const posts = await Post.find({ categories: categories });
-        res.json(posts);
+        const requestedCategories = req.params.categories.split(',');
+        if (!req.params.categories) {
+          return res.status(400).json({ error: 'Categories parameter is missing.' });
+        }
+      
         try {
-          const posts = await Post.find({ categories: categories });
+          // Find posts with the specified categories
+          const posts = await Post.find({ categories: { $in: requestedCategories } });
           if (posts.length === 0) {
+            // If no posts found for the categories, return a 404 response
             return res.status(404).json({ message: 'No posts found for the specified categories.' });
           }
+          // Return the list of posts for the specified categories
           res.json(posts);
         } catch (error) {
+          // Handle errors and return a 500 response
           res.status(500).json({ error: 'Internal Server Error' });
         }
       }
+
       // [PUT] /Post/update/:id
       async updatePost(req, res) {
         let name = null;
