@@ -17,6 +17,7 @@ function route(app) {
     app.use('/logout', logoutRouter)
     app.use('/post', postRouter)
     app.use('/getPost', postRouter)
+    
 }
 
 module.exports = route;

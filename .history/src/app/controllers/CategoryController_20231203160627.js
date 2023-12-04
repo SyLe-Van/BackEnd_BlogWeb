@@ -1,4 +1,6 @@
 
+
+
 class LogoutController {
     // [POST] /Logout
     logout(req, res) {

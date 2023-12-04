@@ -39,7 +39,7 @@ const uploadSingleFile = async (fileObject) => {
         const ext = parts[parts.length - 1] 
 
         const {token} = req.cookies
-        jwt.verify(token, secret, async (err, info) => {
+        jwt.verify(req.cookies.token, secret, async (err, info) => {
           if (err) throw err;
           const { title, content, categories } = req.body;
           const postDoc = await Post.create({
@@ -86,34 +86,36 @@ const uploadSingleFile = async (fileObject) => {
 
       // [PUT] /Post/update/:id
       async updatePost(req, res) {
-        let name = null;
-        if(req.files){
-          await uploadSingleFile(req.files);
-          const { file: { name } } = req.files;
-          const parts = name.split('.')
-          const ext = parts[parts.length - 1] 
-        }
-        const {token} = req.cookies
-        jwt.verify(token, secret,{}, async (err, info) => {
-          if (err) throw err;
-          const { id,title, content, categories } = req.body;
-          const postDoc = await Post.findById(id)
-          const idAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id)
-          if(!idAuthor){
-            return res.status(403).json('You are not the author of this post')
-          }
-          await postDoc.update({
-            title,
-            content,
-            categories,
-            cover: name ? name : postDoc.cover,
-          })
-          res.json(postDoc)
-        })
+        res.json(req.files)
+        // let name = null;
+        // if(req.files){
+        //   await uploadSingleFile(req.files);
+        //   const { file: { name } } = req.files;;
+        //   const parts = name.split('.')
+        //   const ext = parts[parts.length - 1] 
+        // }
+        // const {token} = req.cookies
+        // jwt.verify(req.cookies.token, secret, async (err, info) => {
+        //   if (err) throw err;
+        //   const { id,title, content, categories } = req.body;
+        //   const postDoc = await Post.findById(id)
+        //   const idAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id)
+        //   if(!idAuthor){
+        //     return res.status(403).json('You are not the author of this post')
+        //   }
+        //   await postDoc.update({
+        //     title,
+        //     content,
+        //     categories,
+        //     cover: name ? name : postDoc.cover,
+        //   })
+        //   res.json(postDoc)
+        // })
       }
       // [DELETE] /deletePost/:id
       deletePost(req, res) {
         const { id } = req.params;
+        console.log(id)
         Post.findByIdAndDelete(id)
           .then(() => res.json('ok'))
           .catch(err => res.status(400).json('Error: ' + err));

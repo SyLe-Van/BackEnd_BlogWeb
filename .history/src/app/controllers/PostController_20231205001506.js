@@ -114,9 +114,10 @@ const uploadSingleFile = async (fileObject) => {
       // [DELETE] /deletePost/:id
       deletePost(req, res) {
         const { id } = req.params;
-        Post.findByIdAndDelete(id)
-          .then(() => res.json('ok'))
-          .catch(err => res.status(400).json('Error: ' + err));
+        req.json(id)
+        // Post.findByIdAndDelete(id)
+        //   .then(() => res.json('ok'))
+        //   .catch(err => res.status(400).json('Error: ' + err));
       }
 }
 

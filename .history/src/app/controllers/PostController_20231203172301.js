@@ -39,7 +39,7 @@ const uploadSingleFile = async (fileObject) => {
         const ext = parts[parts.length - 1] 
 
         const {token} = req.cookies
-        jwt.verify(token, secret, async (err, info) => {
+        jwt.verify(req.cookies.token, secret, async (err, info) => {
           if (err) throw err;
           const { title, content, categories } = req.body;
           const postDoc = await Post.create({
@@ -60,6 +60,11 @@ const uploadSingleFile = async (fileObject) => {
           .sort({createdAt: -1})
         )
       }
+      // getALLcategories
+      async getAll(req, res) {
+        res.json(await Post.find({}, 'categories'))
+    }
+
       // [GET] /Post/:id
       async getPostById(req, res) {
         const { id } = req.params;
@@ -68,33 +73,40 @@ const uploadSingleFile = async (fileObject) => {
       }
 
       // [GET] /category/:category
-      // async getCategories(req, res) {
-      //   try {
-      //     const lastPost = await Post.findOne().sort({createdAt: -1});
-      //     const lastCategories = lastPost.categories;
-      //     res.json(lastCategories);
-      //   } catch (error) {
-      //     res.status(500).json({ error: 'Internal Server Error' });
-      //   }
-      // }
+      async getCategories(req, res) {
+        try {
+          const lastPost = await Post.findOne().sort({createdAt: -1});
+          const lastCategories = lastPost.categories;
+          res.json(lastCategories);
+        } catch (error) {
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      }
       // [GET] /getPostByCategories/:categories
       async getPostByCategories(req, res) {
-        const {categories} = req.params;
-        const posts = await Post.find({ categories });
-        res.json(posts);
+        const categories = req.params.categories;
+        const posts = await Post.find({ categories: categories });
+        try {
+          const posts = await Post.find({ categories: categories });
+          if (posts.length === 0) {
+            return res.status(404).json({ message: 'No posts found for the specified categories.' });
+          }
+          res.json(posts);
+        } catch (error) {
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
       }
-
       // [PUT] /Post/update/:id
       async updatePost(req, res) {
         let name = null;
         if(req.files){
           await uploadSingleFile(req.files);
-          const { file: { name } } = req.files;
+          const { file: { name } } = req.files;;
           const parts = name.split('.')
           const ext = parts[parts.length - 1] 
         }
         const {token} = req.cookies
-        jwt.verify(token, secret,{}, async (err, info) => {
+        jwt.verify(req.cookies.token, secret, async (err, info) => {
           if (err) throw err;
           const { id,title, content, categories } = req.body;
           const postDoc = await Post.findById(id)
@@ -114,6 +126,7 @@ const uploadSingleFile = async (fileObject) => {
       // [DELETE] /deletePost/:id
       deletePost(req, res) {
         const { id } = req.params;
+        console.log(id)
         Post.findByIdAndDelete(id)
           .then(() => res.json('ok'))
           .catch(err => res.status(400).json('Error: ' + err));
