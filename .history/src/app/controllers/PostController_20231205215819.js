@@ -114,12 +114,28 @@ const uploadSingleFile = async (fileObject) => {
       // [DELETE] /deletePost/:id
       async deletePost(req, res) {
         const { id } = req.params;
-        try {
-          await Post.findByIdAndDelete(id);
-          res.json({ message: 'Post deleted successfully' });
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
+        const { token } = req.cookies;
+    
+        jwt.verify(token, secret, {}, async (err, info) => {
+          if (err) throw err;
+    
+          try {
+            const post = await Post.findById(id);
+            if (!post) {
+              return res.status(404).json({ error: 'Post not found' });
+            }
+    
+            const idAuthor = JSON.stringify(post.author) === JSON.stringify(info.id);
+            if (!idAuthor) {
+              return res.status(403).json('You are not the author of this post');
+            }
+    
+            await post.remove();
+            res.json({ message: 'Post deleted successfully' });
+          } catch (error) {
+            res.status(500).json({ error: 'Internal Server Error' });
+          }
+        });
       }
 }
 

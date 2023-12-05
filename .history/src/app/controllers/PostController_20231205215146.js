@@ -112,14 +112,12 @@ const uploadSingleFile = async (fileObject) => {
         })
       }
       // [DELETE] /deletePost/:id
-      async deletePost(req, res) {
-        const { id } = req.params;
-        try {
-          await Post.findByIdAndDelete(id);
-          res.json({ message: 'Post deleted successfully' });
-        } catch (error) {
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
+      deletePost(req, res) {
+        // const { id } = req.params;
+        res.json('Delete successfully')
+        // Post.findByIdAndDelete(id)
+        //   .then(() => res.json('Delete successfully'))
+        //   .catch(err => res.status(400).json('Error: ' + err));
       }
 }
 
