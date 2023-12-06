@@ -17,9 +17,9 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-router.post('/createPost' ,postController.post )
+router.post('/' ,postController.post )
 router.get('/getPost' ,postController.getPost)
-router.get('/getPost/:id', postController.getPostById)
+router.get('/:id', postController.getPostById)
 router.get('/getPostByCategories/:categories', postController.getPostByCategories)
 router.put('/update/:id', postController.updatePost)
 router.delete('/deletePost/:id', postController.deletePost)

@@ -10,12 +10,14 @@ const profileRouter = require('./profile')
 const logoutRouter = require('./logout')
 const postRouter = require('./post')
 function route(app) {
+
     app.use('/register', registerRouter)
     app.use('/login', loginRouter)
     app.use('/profile', profileRouter)
     app.use('/logout', logoutRouter)
     app.use('/post', postRouter)
     app.use('/getPost', postRouter)
+    app.use('/categories', categoriesRouter)
 }
 
 module.exports = route;
