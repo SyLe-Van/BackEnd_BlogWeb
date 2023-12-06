@@ -14,12 +14,12 @@ const storage = multer.diskStorage({
       cb(null, file.fieldname + Date.now())
       console.log(file)
     }
-})
+  })
 const upload = multer({ storage: storage })
 
 router.post('/createPost' ,postController.post )
-router.get('/getPost' ,postController.getPost)
-router.get('/getPost/:id', postController.getPostById)
+router.get('/' ,postController.getPost)
+router.get('/:id', postController.getPostById)
 router.get('/getPostByCategories/:categories', postController.getPostByCategories)
 router.put('/update/:id', postController.updatePost)
 router.delete('/deletePost/:id', postController.deletePost)
