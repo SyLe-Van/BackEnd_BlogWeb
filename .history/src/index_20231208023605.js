@@ -31,7 +31,7 @@ app.options('https://backend-blogwebsite.onrender.com/post/createPost', (req, re
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.header('Access-Control-Allow-Credentials', true);
     res.send();
-});
+  });
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
