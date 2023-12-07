@@ -16,11 +16,8 @@ app.use(express.urlencoded({
 }));
 // app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
 app.use(cors({credentials: true, origin: 'https://frontend-blogwebsite.vercel.app'}));
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Credentials', 'true');
-    // Các cấu hình khác
-    next();
-});
+
+
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
