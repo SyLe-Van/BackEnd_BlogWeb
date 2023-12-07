@@ -14,8 +14,9 @@ const multer = require('multer');
 app.use(express.urlencoded({
     extended: true
 }));
-// app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
-app.use(cors({credentials: true, origin: 'https://frontend-blogwebsite.vercel.app/'}));
+app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
+// app.use(cors({credentials: true, origin: 'https://front-end-blog-web.vercel.app'}));
+
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
