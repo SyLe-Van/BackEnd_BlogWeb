@@ -21,7 +21,7 @@ router.post('/createPost' ,postController.post )
 router.get('/getPost' ,postController.getPost)
 router.get('/getPost/:id', postController.getPostById)
 router.get('/getPostByCategories/:categories', postController.getPostByCategories)
-router.get('/search', postController.getPostByName)
+router.get('/search/:text', postController.getPostByName)
 router.put('/update/:id', postController.updatePost)
 router.delete('/deletePost/:id', postController.deletePost)
 module.exports = router;

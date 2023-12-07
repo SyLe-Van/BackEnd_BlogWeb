@@ -70,23 +70,7 @@ const uploadSingleFile = async (fileObject) => {
         const postDoc = await Post.findById(id).populate('author', ['username'])
         res.json(postDoc)
       }
-      // [GET] /Post/:name
-      async getPostByName(req, res) {
-        try {
-          const { keyword } = req.query;
-          const posts = await Post.find({
-              $or: [
-                  { title: { $regex: keyword, $options: 'i' } }, 
-                  { content: { $regex: keyword, $options: 'i' } } 
-              ]
-          });
-          res.json(posts);
 
-        } catch (error) {
-          console.error(error);
-          res.status(500).json({ error: 'Internal Server Error' });
-        }
-      }
       // [GET] /category/:category
       // async getCategories(req, res) {
       //   try {
