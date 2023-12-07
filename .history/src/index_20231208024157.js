@@ -17,8 +17,21 @@ app.use(express.urlencoded({
 // app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
 // app.use(cors({credentials: true, origin: 'https://frontend-blogwebsite.vercel.app'}));
 
-app.use(cors({credentials: true, origin: 'https://frontend-blogwebsite.vercel.app'}));
-
+app.use(cors({
+    origin: 'https://frontend-blogwebsite.vercel.app',
+    methods: 'PUT, GET, HEAD, POST, DELETE, OPTIONS',
+    credentials: true,
+    allowedHeaders: 'Content-Type',
+  }));
+  
+  // Endpoint xử lý Preflight Request
+app.options('https://backend-blogwebsite.onrender.com/post/createPost', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'https://frontend-blogwebsite.vercel.app');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, HEAD, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.send();
+  });
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true }));
