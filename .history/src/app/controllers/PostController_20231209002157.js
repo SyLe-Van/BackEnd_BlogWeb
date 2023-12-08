@@ -59,6 +59,7 @@ class PostController {
         .populate("author", ["username"])
         .sort({ createdAt: -1 })
         .limit(10);
+
       res.json(posts);
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });
