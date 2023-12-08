@@ -59,6 +59,7 @@ class PostController {
         .populate("author", ["username"])
         .sort({ createdAt: -1 })
         .limit(10);
+
       res.json(posts);
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });
@@ -86,6 +87,17 @@ class PostController {
       res.status(500).json({ error: "Internal Server Error" });
     }
   }
+  // [GET] /category/:category
+  // async getCategories(req, res) {
+  //   try {
+  //     const lastPost = await Post.findOne().sort({createdAt: -1});
+  //     const lastCategories = lastPost.categories;
+  //     res.json(lastCategories);
+  //   } catch (error) {
+  //     res.status(500).json({ error: 'Internal Server Error' });
+  //   }
+  // }
+  // [GET] /getPostByCategories/:categories
   async getPostByCategories(req, res) {
     const { categories } = req.params;
     const posts = await Post.find({ categories });
