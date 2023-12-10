@@ -3,6 +3,7 @@ const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const secret = "uit20521854";
 const path = require("path");
+
 const uploadSingleFile = async (fileObject) => {
   const { file } = fileObject;
   let uploadPath = path.resolve(__dirname, "../public/images/upload");
@@ -142,24 +143,20 @@ class PostController {
     }
   }
   // [GET] /seach blog
-
   async searchPost(req, res) {
-    const { query } = req.query;
-
+    const { query } = req.params;
     try {
-      function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-      const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
       const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
+        $or: [
+          { title: { $regex: query, $options: "i" } },
+          { content: { $regex: query, $options: "i" } },
+        ],
       });
       res.json(posts);
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: "Lỗi Nội Dung Bên Trong Máy Chủ" });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   }
 }
-
 module.exports = new PostController();

@@ -3,6 +3,8 @@ const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const secret = "uit20521854";
 const path = require("path");
+const escapeStringRegexp = (await import("escape-string-regexp")).default;
+
 const uploadSingleFile = async (fileObject) => {
   const { file } = fileObject;
   let uploadPath = path.resolve(__dirname, "../public/images/upload");
@@ -142,17 +144,15 @@ class PostController {
     }
   }
   // [GET] /seach blog
-
   async searchPost(req, res) {
     const { query } = req.query;
-
     try {
-      function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-      const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
+      const escapedQuery = escapeStringRegexp(query);
       const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
+        $or: [
+          { title: { $regex: escapedQuery, $options: "i" } },
+          { content: { $regex: escapedQuery, $options: "i" } },
+        ],
       });
       res.json(posts);
     } catch (error) {
@@ -161,5 +161,4 @@ class PostController {
     }
   }
 }
-
 module.exports = new PostController();

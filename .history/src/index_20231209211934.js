@@ -1,8 +1,10 @@
-const path = require("path");
-const express = require("express");
-const morgan = require("morgan");
+import path from "path";
+// const path = require("path");
+// const express = require("express");
+import express from "express";
 const app = express();
-const route = require("./routes");
+// const route = require("./routes");
+import route from "./routes";
 const port = 3000;
 const cors = require("cors");
 const methodOverride = require("method-override");
@@ -11,6 +13,7 @@ const User = require("./app/models/User");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const multer = require("multer");
+const escapeStringRegexp = require("escape-string-regexp");
 
 app.use(
   express.urlencoded({

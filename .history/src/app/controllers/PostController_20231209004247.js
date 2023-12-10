@@ -3,6 +3,7 @@ const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const secret = "uit20521854";
 const path = require("path");
+
 const uploadSingleFile = async (fileObject) => {
   const { file } = fileObject;
   let uploadPath = path.resolve(__dirname, "../public/images/upload");
@@ -30,37 +31,27 @@ const uploadSingleFile = async (fileObject) => {
 class PostController {
   // [POST] /Post/createPost
   async post(req, res) {
-    try {
-      if (!req.files || !req.files.file) {
-        return res.status(400).json({ error: "No file provided" });
-      }
+    const images = await uploadSingleFile(req.files);
+    const {
+      file: { name },
+    } = req.files;
+    const parts = name.split(".");
+    const ext = parts[parts.length - 1];
 
-      const images = await uploadSingleFile(req.files);
-      const {
-        file: { name },
-      } = req.files;
-      const parts = name.split(".");
-      const ext = parts[parts.length - 1];
-
-      const { token } = req.cookies;
-      jwt.verify(token, secret, async (err, info) => {
-        if (err) throw err;
-        const { title, content, categories } = req.body;
-        const postDoc = await Post.create({
-          title,
-          content,
-          categories,
-          cover: images.path,
-          author: info.id,
-        });
-        res.json(postDoc);
+    const { token } = req.cookies;
+    jwt.verify(token, secret, async (err, info) => {
+      if (err) throw err;
+      const { title, content, categories } = req.body;
+      const postDoc = await Post.create({
+        title,
+        content,
+        categories,
+        cover: images.path,
+        author: info.id,
       });
-    } catch (error) {
-      console.error("Error creating post:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
+      res.json(postDoc);
+    });
   }
-
   // [GET] /Post
   async getPost(req, res) {
     try {
@@ -139,25 +130,6 @@ class PostController {
       res.json({ message: "Post deleted successfully" });
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });
-    }
-  }
-  // [GET] /seach blog
-
-  async searchPost(req, res) {
-    const { query } = req.query;
-
-    try {
-      function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-      const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
-      const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
-      });
-      res.json(posts);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Lỗi Nội Dung Bên Trong Máy Chủ" });
     }
   }
 }

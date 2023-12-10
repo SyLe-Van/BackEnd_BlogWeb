@@ -22,7 +22,7 @@ router.get(
   "/getPostByCategories/:categories",
   postController.getPostByCategories
 );
-router.get("/search", postController.searchPost);
+router.get("/search/:query", postController.searchPost);
 router.put("/updatePost", postController.updatePost);
 router.delete("/deletePost/:id", postController.deletePost);
 module.exports = router;

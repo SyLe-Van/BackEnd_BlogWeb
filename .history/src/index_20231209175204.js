@@ -11,7 +11,7 @@ const User = require("./app/models/User");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const multer = require("multer");
-
+const escapeStringRegexp = require("escape-string-regexp");
 app.use(
   express.urlencoded({
     extended: true,

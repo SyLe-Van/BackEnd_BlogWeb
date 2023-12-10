@@ -152,7 +152,10 @@ class PostController {
       }
       const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
       const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
+        $or: [
+          { title: { $regex: escapedQuery } },
+          { content: { $regex: escapedQuery } },
+        ],
       });
       res.json(posts);
     } catch (error) {
