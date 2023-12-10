@@ -9,8 +9,9 @@ const loginRouter = require('./login')
 const profileRouter = require('./profile')
 const logoutRouter = require('./logout')
 const postRouter = require('./post')
-function route(app) {
+const categoriesRouter = require('./categories')
 
+function route(app) {
     app.use('/register', registerRouter)
     app.use('/login', loginRouter)
     app.use('/profile', profileRouter)
