@@ -1,8 +1,10 @@
-const path = require("path");
-const express = require("express");
-const morgan = require("morgan");
+import path from "path";
+// const path = require("path");
+// const express = require("express");
+import express from "express";
 const app = express();
-const route = require("./routes");
+// const route = require("./routes");
+import route from "./routes";
 const port = 3000;
 const cors = require("cors");
 const methodOverride = require("method-override");

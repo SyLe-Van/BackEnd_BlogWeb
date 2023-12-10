@@ -1,4 +1,5 @@
 const path = require("path");
+import path from "path";
 const express = require("express");
 const morgan = require("morgan");
 const app = express();

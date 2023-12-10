@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const postController = require("../app/controllers/PostController");
 const multer = require("multer");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads");
@@ -22,8 +23,7 @@ router.get(
   "/getPostByCategories/:categories",
   postController.getPostByCategories
 );
-router.get("/search", postController.searchPost);
+router.get("/search/:query", postController.searchPost);
 router.put("/updatePost", postController.updatePost);
 router.delete("/deletePost/:id", postController.deletePost);
-
 module.exports = router;

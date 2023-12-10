@@ -3,6 +3,7 @@ const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const secret = "uit20521854";
 const path = require("path");
+
 const uploadSingleFile = async (fileObject) => {
   const { file } = fileObject;
   let uploadPath = path.resolve(__dirname, "../public/images/upload");
@@ -103,34 +104,30 @@ class PostController {
 
   // [PUT] /Post/update/:id
   async updatePost(req, res) {
-    let name = null;
-    if (req.files) {
-      await uploadSingleFile(req.files);
-      const {
-        file: { name },
-      } = req.files;
-      const parts = name.split(".");
-      const ext = parts[parts.length - 1];
-    }
-    const { token } = req.cookies;
-    jwt.verify(token, secret, {}, async (err, info) => {
-      if (err) throw err;
-      const { id, title, content, categories } = req.body;
-      const postDoc = await Post.findById(id);
-      const idAuthor =
-        JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-      if (!idAuthor) {
-        return res.status(403).json("You are not the author of this post");
+    try {
+      const { id } = req.params;
+      const { title, content, categories } = req.body;
+
+      // Find the post by ID
+      const post = await Post.findById(id);
+
+      // Check if the post exists
+      if (!post) {
+        return res.status(404).json({ error: "Post not found" });
       }
-      await postDoc.update({
-        title,
-        content,
-        categories,
-        cover: name ? name : postDoc.cover,
-      });
-      res.json(postDoc);
-    });
+      // Update the post fields
+      post.title = title;
+      post.content = content;
+      post.categories = categories;
+      // Save the updated post
+      await post.save();
+      res.json(post);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   }
+
   // [DELETE] /deletePost/:id
   async deletePost(req, res) {
     const { id } = req.params;
@@ -139,25 +136,6 @@ class PostController {
       res.json({ message: "Post deleted successfully" });
     } catch (error) {
       res.status(500).json({ error: "Internal Server Error" });
-    }
-  }
-  // [GET] /seach blog
-
-  async searchPost(req, res) {
-    const { query } = req.query;
-
-    try {
-      function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-      const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
-      const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
-      });
-      res.json(posts);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Lỗi Nội Dung Bên Trong Máy Chủ" });
     }
   }
 }

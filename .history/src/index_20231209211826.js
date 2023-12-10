@@ -1,4 +1,5 @@
-const path = require("path");
+import path from "path";
+// const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
@@ -11,6 +12,7 @@ const User = require("./app/models/User");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const multer = require("multer");
+const escapeStringRegexp = require("escape-string-regexp");
 
 app.use(
   express.urlencoded({

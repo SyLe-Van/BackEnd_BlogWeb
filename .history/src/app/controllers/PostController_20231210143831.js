@@ -145,14 +145,17 @@ class PostController {
 
   async searchPost(req, res) {
     const { query } = req.query;
-
+    console.log(query);
     try {
       function escapeRegExp(str) {
         return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       }
       const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
       const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
+        $or: [
+          { title: { $regex: escapedQuery } },
+          { content: { $regex: escapedQuery } },
+        ],
       });
       res.json(posts);
     } catch (error) {

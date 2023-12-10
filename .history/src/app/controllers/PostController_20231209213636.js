@@ -142,17 +142,15 @@ class PostController {
     }
   }
   // [GET] /seach blog
-
   async searchPost(req, res) {
     const { query } = req.query;
-
     try {
-      function escapeRegExp(str) {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-      const escapedQuery = query ? new RegExp(escapeRegExp(query), "i") : null;
+      const escapedQuery = query ? new RegExp(regexp.escape(query), "i") : null;
       const posts = await Post.find({
-        $or: [{ title: { $regex: escapedQuery } }],
+        $or: [
+          { title: { $regex: escapedQuery, $options: "i" } },
+          { content: { $regex: escapedQuery, $options: "i" } },
+        ],
       });
       res.json(posts);
     } catch (error) {
@@ -161,5 +159,4 @@ class PostController {
     }
   }
 }
-
 module.exports = new PostController();
