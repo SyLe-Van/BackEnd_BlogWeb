@@ -1,7 +1,7 @@
 /**
- * @api {post} /purchases/:create Create New Purchases
- * @apiName CreateItem
- * @apiGroup Admin
+ * @api {post} /register Register New User
+ * @apiName RegisterNewUser
+ * @apiGroup 
  *
  * @apiParam {String} name Name of purchases.
  * @apiParam {String} Description Decription of purchases.
