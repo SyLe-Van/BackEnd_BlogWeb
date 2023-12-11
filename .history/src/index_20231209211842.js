@@ -1,5 +1,7 @@
-const path = require("path");
-const express = require("express");
+import path from "path";
+// const path = require("path");
+// const express = require("express");
+import express from "express";
 const morgan = require("morgan");
 const app = express();
 const route = require("./routes");
@@ -11,6 +13,7 @@ const User = require("./app/models/User");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const multer = require("multer");
+const escapeStringRegexp = require("escape-string-regexp");
 
 app.use(
   express.urlencoded({
@@ -22,8 +25,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001",
-      "https://front-end-blog-web.vercel.app",
-      "https://front-end-blog-7rrhwdz8h-syle-van.vercel.app",
+      "https://frontend-blogwebsite.vercel.app",
     ], // Allow requests from these origins
     credentials: true, // Allow cookies and credentials
   })

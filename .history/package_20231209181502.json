@@ -8,7 +8,7 @@
     "dev": "node index.js",
     "watch": "node-sass -w src/resources/scss/app.scss src/public/css/app.css",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "gen_api_doc": "apidoc -i ./src/routes/ -o ./public/docs/"
+    "gen_api_doc": "apidoc -i backend/src/routes/ -o backend/public/docs/"
   },
   "author": "levansy_20521854",
   "license": "ISC",
@@ -45,5 +45,4 @@
     "type": "git",
     "url": "git+https://github.com/SyLe-Van/NodeJS_v2.git"
   },
-  "proxy": "https://backend-blogwebsite.onrender.com"
 }

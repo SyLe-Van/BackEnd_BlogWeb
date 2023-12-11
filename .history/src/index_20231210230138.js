@@ -20,11 +20,7 @@ app.use(
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
-      "https://front-end-blog-web.vercel.app",
-      "https://front-end-blog-7rrhwdz8h-syle-van.vercel.app",
-    ], // Allow requests from these origins
+    origin: ["http://localhost:3001", "https://front-end-blog-web.vercel.app"], // Allow requests from these origins
     credentials: true, // Allow cookies and credentials
   })
 );

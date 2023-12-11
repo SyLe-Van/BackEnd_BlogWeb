@@ -25,5 +25,4 @@ router.get(
 router.get("/search", postController.searchPost);
 router.put("/updatePost", postController.updatePost);
 router.delete("/deletePost/:id", postController.deletePost);
-
 module.exports = router;
