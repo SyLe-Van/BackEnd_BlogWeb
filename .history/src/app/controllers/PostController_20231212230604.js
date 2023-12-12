@@ -140,7 +140,7 @@ class PostController {
       if (!idAuthor) {
         return res.status(403).json("You are not the author of this post");
       }
-      await postDoc.updateOne({
+      await postDoc.update({
         title,
         content,
         categories,

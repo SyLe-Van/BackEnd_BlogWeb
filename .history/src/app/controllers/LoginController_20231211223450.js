@@ -55,11 +55,12 @@ class LoginController {
       if (passOk) {
         const accessToken = jwt.sign(
           {
-            username,
-            id: userDoc._id,
+            sub: userDoc._id,
+            exp: Math.floor(Date.now() / 1000) + 3600,
           },
           jwtSecret
         );
+
         res
           .cookie("token", accessToken, { secure: true, httpOnly: true })
           .json({

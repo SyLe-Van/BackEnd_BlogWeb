@@ -1,14 +1,16 @@
 const path = require("path");
-const dotenv = require("dotenv").config();
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 const route = require("./routes");
 const port = 3000;
 const cors = require("cors");
 const methodOverride = require("method-override");
 const { default: mongoose } = require("mongoose");
+const User = require("./app/models/User");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const multer = require("multer");
 
 app.use(
   express.urlencoded({
@@ -18,10 +20,15 @@ app.use(
 
 app.use(
   cors({
-    origin: ["http://localhost:3001"],
+    origin: [
+      "http://localhost:3001",
+      // "https://front-end-blog-web.vercel.app",
+      // "https://front-end-blog-7rrhwdz8h-syle-van.vercel.app",
+    ],
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(cookieParser());

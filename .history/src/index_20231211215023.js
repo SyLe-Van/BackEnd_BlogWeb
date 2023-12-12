@@ -1,7 +1,5 @@
 const path = require("path");
-const dotenv = require("dotenv").config();
 const express = require("express");
-const app = express();
 const route = require("./routes");
 const port = 3000;
 const cors = require("cors");
@@ -22,6 +20,7 @@ app.use(
     credentials: true,
   })
 );
+const app = express();
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(cookieParser());

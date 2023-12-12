@@ -55,6 +55,7 @@ class LoginController {
       if (passOk) {
         const accessToken = jwt.sign(
           {
+            sub: userDoc._id,
             username,
             id: userDoc._id,
           },

@@ -5,6 +5,7 @@ const { logout } = require("../app/controllers/LogoutController");
 const { catrgories } = require("../app/controllers/CategoriesController");
 const registerRouter = require("./register");
 const loginRouter = require("./login");
+const profileRouter = require("./profile");
 const logoutRouter = require("./logout");
 const postRouter = require("./post");
 const categoriesRouter = require("./categories");
