@@ -55,11 +55,13 @@ class LoginController {
       if (passOk) {
         const accessToken = jwt.sign(
           {
+            sub: userDoc._id,
             username,
             id: userDoc._id,
           },
           jwtSecret
         );
+        console.log(jwtSecret);
         res
           .cookie("token", accessToken, { secure: true, httpOnly: true })
           .json({

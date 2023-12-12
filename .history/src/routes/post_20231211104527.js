@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-router.get("/profile", postController.profile);
+route.get("/profile", postController.profile);
 router.post("/createPost", postController.post);
 router.get("/getPost", postController.getPost);
 router.get("/getPost/:id", postController.getPostById);

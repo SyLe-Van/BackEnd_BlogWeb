@@ -61,9 +61,12 @@ class PostController {
       const ext = parts[parts.length - 1];
 
       const { token } = req.cookies;
+      console.log(jwtSecret);
+      console.log(token);
       jwt.verify(token, jwtSecret, async (err, info) => {
         if (err) throw err;
         const { title, content, categories } = req.body;
+        console.log(info);
         const postDoc = await Post.create({
           title,
           content,
@@ -140,7 +143,7 @@ class PostController {
       if (!idAuthor) {
         return res.status(403).json("You are not the author of this post");
       }
-      await postDoc.updateOne({
+      await postDoc.update({
         title,
         content,
         categories,

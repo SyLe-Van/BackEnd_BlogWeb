@@ -1,7 +1,7 @@
 const fs = require("fs");
 const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
-// const secret = "uit20521854";
+const secret = "uit20521854";
 const path = require("path");
 const jwtSecret = process.env.JWT_SECRET || "default_secret";
 const uploadSingleFile = async (fileObject) => {
@@ -61,7 +61,7 @@ class PostController {
       const ext = parts[parts.length - 1];
 
       const { token } = req.cookies;
-      jwt.verify(token, jwtSecret, async (err, info) => {
+      jwt.verify(token, secret, async (err, info) => {
         if (err) throw err;
         const { title, content, categories } = req.body;
         const postDoc = await Post.create({
@@ -131,7 +131,7 @@ class PostController {
       const ext = parts[parts.length - 1];
     }
     const { token } = req.cookies;
-    jwt.verify(token, jwtSecret, {}, async (err, info) => {
+    jwt.verify(token, secret, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, content, categories } = req.body;
       const postDoc = await Post.findById(id);
@@ -140,7 +140,7 @@ class PostController {
       if (!idAuthor) {
         return res.status(403).json("You are not the author of this post");
       }
-      await postDoc.updateOne({
+      await postDoc.update({
         title,
         content,
         categories,

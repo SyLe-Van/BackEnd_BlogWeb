@@ -1,5 +1,5 @@
 const { register } = require("../app/controllers/RegisterController");
-const { login } = require("../app/controllers/LoginController");
+const { login } = require("../app/controllers/LoginController").default;
 const { post } = require("../app/controllers/PostController");
 const { logout } = require("../app/controllers/LogoutController");
 const { catrgories } = require("../app/controllers/CategoriesController");
