@@ -9,6 +9,7 @@ const methodOverride = require("method-override");
 const { default: mongoose } = require("mongoose");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const { httpProxy } = require("http-proxy");
 
 app.use(
   express.urlencoded({
@@ -18,16 +19,30 @@ app.use(
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
+    origin:
+      // "http://localhost:3001",
       "https://vercel.com/syle-van/front-end-blog-web",
-    ],
-    credentials: true,
+    credential: true,
   })
 );
+httpProxy = require("http-proxy");
+httpProxy
+  .createProxyServer({ target: "http://localhost:3001" })
+  .listen(3000)
+  .createServer(function (req, res) {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.write(
+      "request successfully proxied!" +
+        "\n" +
+        JSON.stringify(req.headers, true, 2)
+    );
+    res.end();
+  })
+  .listen(3000);
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 

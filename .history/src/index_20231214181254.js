@@ -22,7 +22,7 @@ app.use(
       "http://localhost:3001",
       "https://vercel.com/syle-van/front-end-blog-web",
     ],
-    credentials: true,
+    credential: true,
   })
 );
 app.use(express.json());

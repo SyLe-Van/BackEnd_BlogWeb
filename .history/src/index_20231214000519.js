@@ -18,16 +18,16 @@ app.use(
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:3001",
+    origin:
+      // "http://localhost:3001",
       "https://vercel.com/syle-van/front-end-blog-web",
-    ],
-    credentials: true,
+    withCredential: true,
   })
 );
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(fileUpload());
 

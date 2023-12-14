@@ -20,9 +20,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:3001",
-      "https://vercel.com/syle-van/front-end-blog-web",
+      // "https://vercel.com/syle-van/front-end-blog-web",
     ],
-    credentials: true,
+    credential: true,
   })
 );
 app.use(express.json());

@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secretKey = "levansy";
+
 class LoginController {
   // [POST] /login
   async login(req, res) {
@@ -9,11 +9,14 @@ class LoginController {
     try {
       const existingUser = await User.findOne({ username });
       const passOk = bcrypt.compareSync(password, existingUser.password);
-      const token = jwt.sign({ sub: existingUser._id }, secretKey);
+      const token = jwt.sign(
+        { username: req.body.username },
+        "levansy20521854daihoccongnghethongtin"
+      );
       if (passOk) {
         jwt.sign(
           { username, id: existingUser._id },
-          secretKey,
+          "levansy20521854daihoccongnghethongtin",
           {},
           (err, token) => {
             if (err) throw err;

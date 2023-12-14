@@ -6,20 +6,30 @@ const saltRounds = 12;
 class RegisterController {
   // [POST] /register
   async register(req, res) {
-    const { username, password } = req.body;
     try {
-      const existingUser = await User.findOne({ username });
+      const existingUser = await User.findOne({ username: req.body.username });
+
+      async function hashPass(password) {
+        return await bcrypt.hash(password, saltRounds);
+      }
+
+      async function compare(userPass, hashPass) {
+        return await bcrypt.compare(userPass, hashPass);
+      }
 
       if (existingUser) {
         return res.status(400).send("User already exists");
       } else {
-        const salt = bcrypt.genSaltSync(saltRounds);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-        const data = await User.create({
-          username,
-          password: hashedPassword,
+        const token = jwt.sign(
+          { username: req.body.username },
+          "levansy20521854daihoccongnghethongtin"
+        );
+        const data = {
+          username: req.body.username,
+          password: hashPass(req.body.password),
           token: token,
-        });
+        };
+        await User.insertMany([data]);
         res.status(201).send("User registered successfully");
       }
     } catch (error) {

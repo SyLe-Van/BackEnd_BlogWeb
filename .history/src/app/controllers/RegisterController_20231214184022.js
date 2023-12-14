@@ -15,6 +15,7 @@ class RegisterController {
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
+
         const data = await User.create({
           username,
           password: hashedPassword,

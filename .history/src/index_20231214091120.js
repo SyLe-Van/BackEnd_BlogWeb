@@ -9,6 +9,7 @@ const methodOverride = require("method-override");
 const { default: mongoose } = require("mongoose");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
+const { httpProxy } = require("http-proxy");
 
 app.use(
   express.urlencoded({
@@ -22,7 +23,7 @@ app.use(
       "http://localhost:3001",
       "https://vercel.com/syle-van/front-end-blog-web",
     ],
-    credentials: true,
+    credential: true,
   })
 );
 app.use(express.json());
