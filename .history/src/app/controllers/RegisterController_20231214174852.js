@@ -15,8 +15,12 @@ class RegisterController {
       } else {
         const salt = bcrypt.genSaltSync(saltRounds);
         const hashedPassword = bcrypt.hashSync(password, salt);
+        const token = jwt.sign(
+          { username: req.body.username },
+          "levansy20521854daihoccongnghethongtin"
+        );
         const data = await User.create({
-          username,
+          username: req.body.username,
           password: hashedPassword,
           token: token,
         });

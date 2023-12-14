@@ -32,7 +32,8 @@ class PostController {
   //[GET] /Post/profile
   profile(req, res) {
     const { token } = req.cookies;
-    jwt.verify(token, secretKey, {}, (err, info) => {
+    console.log(token);
+    jwt.verify(token, {}, (err, info) => {
       if (err) {
         console.error("Xác thực JWT thất bại:", err.message);
         return res.status(401).json({ error: "Unauthorized" });
@@ -58,18 +59,22 @@ class PostController {
       const ext = parts[parts.length - 1];
 
       const { token } = req.cookies;
-      jwt.verify(token, secretKey, async (err, info) => {
-        if (err) throw err;
-        const { title, content, categories } = req.body;
-        const postDoc = await Post.create({
-          title,
-          content,
-          categories,
-          cover: images.path,
-          author: info.id,
-        });
-        res.json(postDoc);
-      });
+      jwt.verify(
+        token,
+        "levansy20521854daihoccongnghethongtin",
+        async (err, info) => {
+          if (err) throw err;
+          const { title, content, categories } = req.body;
+          const postDoc = await Post.create({
+            title,
+            content,
+            categories,
+            cover: images.path,
+            author: info.id,
+          });
+          res.json(postDoc);
+        }
+      );
     } catch (error) {
       console.error("Error creating post:", error);
       res.status(500).json({ error: "Internal Server Error" });
@@ -128,23 +133,28 @@ class PostController {
       const ext = parts[parts.length - 1];
     }
     const { token } = req.cookies;
-    jwt.verify(token, secretKey, {}, async (err, info) => {
-      if (err) throw err;
-      const { id, title, content, categories } = req.body;
-      const postDoc = await Post.findById(id);
-      const idAuthor =
-        JSON.stringify(postDoc.author) === JSON.stringify(info.id);
-      if (!idAuthor) {
-        return res.status(403).json("You are not the author of this post");
+    jwt.verify(
+      token,
+      "levansy20521854daihoccongnghethongtin",
+      {},
+      async (err, info) => {
+        if (err) throw err;
+        const { id, title, content, categories } = req.body;
+        const postDoc = await Post.findById(id);
+        const idAuthor =
+          JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+        if (!idAuthor) {
+          return res.status(403).json("You are not the author of this post");
+        }
+        await postDoc.updateOne({
+          title,
+          content,
+          categories,
+          cover: name ? name : postDoc.cover,
+        });
+        res.json(postDoc);
       }
-      await postDoc.updateOne({
-        title,
-        content,
-        categories,
-        cover: name ? name : postDoc.cover,
-      });
-      res.json(postDoc);
-    });
+    );
   }
   // [DELETE] /deletePost/:id
   async deletePost(req, res) {

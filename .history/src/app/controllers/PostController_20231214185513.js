@@ -32,7 +32,8 @@ class PostController {
   //[GET] /Post/profile
   profile(req, res) {
     const { token } = req.cookies;
-    jwt.verify(token, secretKey, {}, (err, info) => {
+    console.log(token);
+    jwt.verify(token, {}, (err, info) => {
       if (err) {
         console.error("Xác thực JWT thất bại:", err.message);
         return res.status(401).json({ error: "Unauthorized" });

@@ -1,8 +1,9 @@
 const fs = require("fs");
 const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
-const secretKey = "levansy";
+// const secret = "uit20521854";
 const path = require("path");
+const jwtSecret = process.env.JWT_SECRET || "default_secret";
 const uploadSingleFile = async (fileObject) => {
   const { file } = fileObject;
   let uploadPath = path.resolve(__dirname, "../public/images/upload");
@@ -31,17 +32,17 @@ const uploadSingleFile = async (fileObject) => {
 class PostController {
   //[GET] /Post/profile
   profile(req, res) {
-    const { token } = req.cookies;
-    jwt.verify(token, secretKey, {}, (err, info) => {
-      if (err) {
-        console.error("Xác thực JWT thất bại:", err.message);
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-      if (!info) {
-        return res.status(401).json({ error: "Unauthorized" });
-      }
-      res.json(info);
-    });
+    // const { token } = req.cookies;
+    // jwt.verify(token, jwtSecret, {}, (err, info) => {
+    //   if (err) {
+    //     console.error("Xác thực JWT thất bại:", err.message);
+    //     return res.status(401).json({ error: "Unauthorized" });
+    //   }
+    //   if (!info) {
+    //     return res.status(401).json({ error: "Unauthorized" });
+    //   }
+    //   res.json(info);
+    // });
   }
   // [POST] /Post/createPost
   async post(req, res) {
@@ -58,7 +59,7 @@ class PostController {
       const ext = parts[parts.length - 1];
 
       const { token } = req.cookies;
-      jwt.verify(token, secretKey, async (err, info) => {
+      jwt.verify(token, jwtSecret, async (err, info) => {
         if (err) throw err;
         const { title, content, categories } = req.body;
         const postDoc = await Post.create({
@@ -128,7 +129,7 @@ class PostController {
       const ext = parts[parts.length - 1];
     }
     const { token } = req.cookies;
-    jwt.verify(token, secretKey, {}, async (err, info) => {
+    jwt.verify(token, jwtSecret, {}, async (err, info) => {
       if (err) throw err;
       const { id, title, content, categories } = req.body;
       const postDoc = await Post.findById(id);

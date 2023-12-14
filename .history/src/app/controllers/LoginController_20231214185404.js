@@ -13,7 +13,7 @@ class LoginController {
       if (passOk) {
         jwt.sign(
           { username, id: existingUser._id },
-          secretKey,
+          "levansy20521854daihoccongnghethongtin",
           {},
           (err, token) => {
             if (err) throw err;

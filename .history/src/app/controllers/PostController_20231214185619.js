@@ -32,6 +32,7 @@ class PostController {
   //[GET] /Post/profile
   profile(req, res) {
     const { token } = req.cookies;
+    console.log(token);
     jwt.verify(token, secretKey, {}, (err, info) => {
       if (err) {
         console.error("Xác thực JWT thất bại:", err.message);
